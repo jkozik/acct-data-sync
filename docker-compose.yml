@@ -1,0 +1,31 @@
+services:
+  export-api:
+    build: .
+    command: python export_api.py
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./tokens.json:/app/tokens.json:ro
+      - ./logs:/app/logs
+      - /home/nf/websiteexports:/home/nf/websiteexports
+    env_file: .env
+    restart: unless-stopped
+
+  export-file-server:
+    build: .
+    command: python export_file_server.py
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/nf/websiteexports:/home/nf/websiteexports:ro
+    restart: unless-stopped
+
+  link-app:
+    build: .
+    command: python link_app.py
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./tokens.json:/app/tokens.json
+    env_file: .env
+    restart: unless-stopped

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+tokens.json
+logs/
+*.log
+*.csv
+.git/
+powershell/
+plaid_claude_code_prompt.txt
